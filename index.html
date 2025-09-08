@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMS 4995 - Applied Machine Learning | Columbia University</title>
+    <style>
+        /* Columbia University Color Palette */
+        :root {
+            --columbia-blue: #B9D9EB;
+            --columbia-navy: #1e3a5f;
+            --columbia-light-blue: #C4D8E2;
+            --columbia-white: #FFFFFF;
+            --columbia-gray: #767676;
+            --columbia-dark-gray: #333333;
+            --accent-blue: #4A90E2;
+            --success-green: #10B981;
+            --warning-orange: #F59E0B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--columbia-dark-gray);
+            background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+            min-height: 100vh;
+        }
+
+        /* Header with subtle gradient */
+        header {
+            background: linear-gradient(135deg, var(--columbia-navy) 0%, #3d5a80 50%, #5e8ab8 100%);
+            color: white;
+            padding: 2.5rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle animated background pattern */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(185, 217, 235, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(185, 217, 235, 0.15) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .course-title {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+        }
+
+        .course-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            opacity: 0.95;
+            margin-bottom: 1rem;
+        }
+
+        .university-name {
+            font-size: 1.1rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        /* Navigation with smooth hover effects */
+        nav {
+            background: linear-gradient(to bottom, var(--columbia-navy), rgba(30, 58, 95, 0.98));
+            padding: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu li a:hover {
+            background: rgba(185, 217, 235, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 3fr 380px;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .section {
+            padding: 2.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            color: var(--columbia-navy);
+            font-size: 1.9rem;
+            margin-bottom: 1.2rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h3 {
+            color: var(--columbia-navy);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+            font-weight: 500;
+        }
+
+        /* Quick Info Cards */
+        .quick-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-info-card {
+            background: linear-gradient(135deg, var(--columbia-light-blue) 0%, rgba(196, 216, 226, 0.3) 100%);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .quick-info-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .quick-info-card .label {
+            font-size: 0.85rem;
+            color: var(--columbia-gray);
+            margin-bottom: 0.3rem;
+        }
+
+        .quick-info-card .value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--columbia-navy);
+        }
+
+        /* Instructor Card Compact */
+        .instructor-mini {
+            background: linear-gradient(135deg, #e6e6fa 0%, #f0f0ff 100%);
+            color: var(--columbia-navy);
+            padding: 1rem 1.2rem;
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 1.2rem;
+            box-shadow: none;
+            border: 1px solid var(--columbia-light-blue);
+            font-size: 1rem;
+        }
+
+        .instructor-mini h3 {
+            color: var(--columbia-navy);
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+            border: none;
+        }
+
+        .instructor-mini .name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .instructor-mini .affiliation {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            margin-bottom: 0.3rem;
+        }
+
+        .instructor-mini .email {
+            color: var(--columbia-navy);
+            text-decoration: underline dotted;
+            font-size: 0.9rem;
+        }
+
+        /* TA List Compact */
+        .ta-list {
+            list-style: none;
+        }
+
+        .ta-list li {
+            padding: 0.8rem 1rem;
+            background: var(--columbia-white);
+            border-left: 3px solid var(--columbia-blue);
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            color: var(--columbia-navy);
+        }
+
+        .ta-list li:hover {
+            background: var(--columbia-light-blue);
+            transform: translateX(2px);
+        }
+
+        .ta-list .name {
+            font-weight: 600;
+            color: var(--columbia-navy);
+            font-size: 0.95rem;
+        }
+
+        .ta-list .email {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        /* Schedule Table */
+        .schedule-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .schedule-table th {
+            background: linear-gradient(135deg, #3d5a80 0%, #5e8ab8 100%);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .schedule-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            background: white;
+        }
+
+        .schedule-table tr:hover td {
+            background: linear-gradient(to right, #ffffff 0%, var(--columbia-light-blue) 100%);
+        }
+
+        .week-number {
+            font-weight: 600;
+            color: var(--columbia-navy);
+            font-size: 1.1rem;
+        }
+
+        /* Announcements */
+        .announcement {
+            background: linear-gradient(135deg, #fff4e6 0%, #ffe8cc 100%);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--warning-orange);
+            transition: transform 0.3s ease;
+        }
+
+        .announcement:hover {
+            transform: translateX(-3px);
+        }
+
+        .announcement-date {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--warning-orange);
+            margin-bottom: 0.3rem;
+        }
+
+        .announcement.new {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-left-color: var(--success-green);
+        }
+
+        .announcement.new .announcement-date {
+            color: var(--success-green);
+        }
+
+        /* Important Dates */
+        .important-dates {
+            background: linear-gradient(135deg, var(--columbia-light-blue) 0%, rgba(196, 216, 226, 0.3) 100%);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .date-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .date-item:last-child {
+            border-bottom: none;
+        }
+
+        .date-item .event {
+            font-weight: 600;
+            color: var(--columbia-navy);
+            font-size: 0.9rem;
+        }
+
+        .date-item .date {
+            color: var(--columbia-gray);
+            font-size: 0.85rem;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            background: linear-gradient(135deg, var(--columbia-navy), var(--accent-blue));
+            color: white;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .badge.new {
+            background: linear-gradient(135deg, var(--success-green), #34d399);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Quick Links */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .quick-links a {
+            display: block;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 6px;
+            text-align: center;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .quick-links a:hover {
+            background: var(--columbia-light-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Sidebar Headers */
+        .sidebar-card h3 {
+            color: var(--columbia-navy);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--columbia-blue);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Grade Distribution */
+        .grade-chart {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .grade-bar {
+            flex: 1;
+            background: #f0f0f0;
+            border-radius: 20px;
+            height: 30px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .grade-segment {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--columbia-navy), #2a4a7f);
+            color: white;
+            text-align: center;
+            padding: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            margin: 0.3rem 0;
+            opacity: 0.9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .quick-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .course-title {
+                font-size: 2rem;
+            }
+
+            .quick-info {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1 class="course-title"><b>Applied Machine Learning</b></h1>
+                <h1 class="course-subtitle">COMS4995W032</h1>
+                <p class="university-name">Columbia University • Fall 2025</p>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#schedule">Schedule</a></li>
+                <li><a href="#assignments">Assignments</a></li>
+                <li><a href="#policies">Policies</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="content-grid">
+            <div class="main-content">
+                <!-- Course Overview - Simplified -->
+                <section class="section" id="overview">
+                    <h2>📚 Course Overview</h2>
+                    
+                    <div class="quick-info">
+                        <div class="quick-info-card">
+                            <div class="label">📅 Schedule</div>
+                            <div class="value">Thu 7:00 PM - 9:30 PM</div>
+                        </div>
+                        <div class="quick-info-card">
+                            <div class="label">📍 Location</div>
+                            <div class="value">Pupin Hall 301</div>
+                        </div>
+                        <div class="quick-info-card">
+                            <div class="label">💳 Credits</div>
+                            <div class="value">3.0</div>
+                        </div>
+                        <div class="quick-info-card">
+                            <div class="label">👥 Enrollment</div>
+                            <div class="value">150+</div>
+                        </div>
+                    </div>
+
+                    <h3>About This Course</h3>
+                    <p><b>Applied Machine Learning</b> empowers complex systems to learn from data and make reliable decisions at scale. This course covers the complete ML pipeline from probabilistic foundations to state-of-the-art LLM training and deployment.</p>
+
+                    <h3>🎯 Key Learning Areas</h3>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;">
+                        <li>Statistical Learning & Optimization</li>
+                        <li>Feature Engineering & Selection</li>
+                        <li>Model Evaluation & Validation</li>
+                        <li>Neural Networks & Transformers</li>
+                        <li>LLM Training & Deployment</li>
+                        <li>Agentic Workflows & Tool Integration</li>
+                    </ul>
+                    
+                    <h3>🧩 Prerequisites</h3>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Strong foundation in Python3, Data Structures, Linear Algebra, and Probability & Statistics</li>
+                        <li>Experience with numpy, pandas, and pytorch is expected</li>
+                    </ul>
+                </section>
+
+                <!-- Course Schedule - Condensed -->
+                <section class="section" id="schedule">
+                    <h2>📅  Schedule</h2>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th width="10%">Week</th>
+                                <th width="60%">Topic</th>
+                                <th width="30%">Materials</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="week-number">1</span></td>
+                                <td><strong>Introduction to Applied Machine Learning</strong></td>
+                                <td><a href="#" target="_blank">Courseworks</a></td>
+                            </tr>
+                            <tr>
+                                <td><span class="week-number">2</span></td>
+                                <td><strong>Data Preparation & Feature Engineering</strong></td>
+                                <td><a href="#" target="_blank"></a></td>
+                            <tr>
+                                <td><span class="week-number">3</span></td>
+                                <td><strong>Generative vs. Discriminative Approaches: Naive Bayes & Linear Regression</strong></td>
+                                <td><a href="#" target="_blank"></a></td>
+                            </tr>
+                            <tr>
+                                <td><span class="week-number">4</span></td>
+                                <td><strong>Model Evaluation & Bias-Variance</strong></td>
+                                <td><a href="#" target="_blank"></a></td>
+                            </tr>
+                            <tr>
+                                <td><span class="week-number">5</span></td>
+                                <td><strong>Tree Models & Ensembles</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="week-number">6</span></td>
+                                <td><strong>Unsupervised Learning</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="week-number">7</span></td>
+                                <td><strong>Neural Networks Fundamentals</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="week-number">8</span></td>
+                                <td><strong>Convolutional Neural Networks</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="week-number">9</span></td>
+                                <td><strong>Basic Transformers</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="week-number">10</span></td>
+                                <td><strong>Advanced Transformers: BERT, GPT & Gemini</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="week-number">11</span></td>
+                                <td><strong>Pre-training & Supervised Fine-tuning</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="week-number">12</span></td>
+                                <td><strong>Reinforcement Learning</strong></td>
+                            </tr>
+                            <tr>
+                                <td><span class="week-number">13</span></td>
+                                <td><strong>Agentic Workflows</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Assignments & Grading -->
+                <section class="section" id="assignments">
+                    <h2>✍️ Assignments & Grading</h2>
+                    
+                    <div class="grade-chart">
+                        <div class="grade-bar">
+                            <div class="grade-segment" style="width: 5%; background: #EC4899;">5%</div>
+                            <div class="grade-segment" style="width: 30%; background: #3B82F6;">30%</div>
+                            <div class="grade-segment" style="width: 35%; background: #8B5CF6;">35%</div>
+                            <div class="grade-segment" style="width: 30%; background: #10B981;">30%</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-around; margin-top: 0.5rem; font-size: 0.85rem;">
+                        <span>🔴 Participation</span>
+                        <span>🔵 Midterm</span>
+                        <span>🟣 Homeworks</span>
+                        <span>🟢 Final Project</span>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Assignment Details</h3>
+                    <ul style="margin-left: 1.5rem; line-height: 2;">
+                        <li><strong>3 Homework Assignments:</strong> End-to-end ML solution with codes + a N-page report</li>
+                        <li><strong>1 Midterm Exam:</strong> Closed-book, focus on concepts (single cheat sheet allowed)</li>
+                        <li><strong>1 Final LLM Project:</strong> Team of ~5, includes presentation + 10-min video + project report</li>
+                    </ul>
+                </section>
+                
+                <section class="section" id="policies">
+                    <h2>📜 Policies</h2>
+                    <h3>Late-work policy</h3>
+                    <ul>
+                        <li>Work submitted <b>24 hours or less</b> past the original due date & time will be accepted with <b>no penalty</b></li>
+                        <li>Work submitted <b>more than 24 hours</b> past the original due date & time will be accepted with a <b>10% penalty</b> for up to <b></b>72 hours</b> past the original due date & time</li>
+                        <li>Work will NOT be accepted <b>more than 72 hours</b> past the original due date & time</li>
+                    </ul>
+                    <h3>Re-grade policy</h3>
+                    <p>Students may request a re-grade <b> within 1 week</b> from the date the graded assignment is returned to students. If requesting a regrade, students should be prepared to make a compelling argument as to why the original grade needs to be reconsidered. The student should discuss the grade with the TA first before requesting instructor re-grade. The process for requesting an instructor re-grade is to email the instructor with the request within one week from the date the graded assignment is returned. The instructor and student will then decide on a mutually agreeable time and place to discuss the assignment</p>
+                    <h3>Use of Generative AI</h3>
+                    <p>AI is everywhere now, and thus assignments/projects in this course will <b>permit/encourage</b> the use of AI tools, such as ChatGPT and Gemini. In the assignments/projects, AI use must be appropriately acknowledged and cited. For instance, if you generated a whole paragraph through ChatGPT and edited it for accuracy, your submitted work would need to include a note such as “<i>I generated this work through Chat GPT and edited the content for accuracy</i>”. It is each student’s responsibility to assess the validity and applicability of any AI output that is submitted </p>
+                </section>
+
+            </div>
+
+            <!-- Enhanced Sidebar -->
+            <div class="sidebar">
+                <!-- Announcements -->
+                <div class="sidebar-card">
+                    <h3>📢 Announcements</h3>
+                    <div class="announcement new">
+                        <div class="announcement-date">🆕 Sep 4, 2025</div>
+                        <p>Welcome to AML! First class Thursday 7PM.</p> 
+                    </div>
+                </div>
+
+                <!-- Important Dates -->
+                <div class="sidebar-card">
+                    <h3>📌 Important Dates</h3>
+                    <div class="important-dates">
+                        <div style="display: flex; justify-content: space-between; font-weight: 500; margin-bottom: 0.5rem;">
+                            <span class="event"></span>
+                            <span style="color: #10B981;">Out</span>
+                            <span style="color: #EC4899;">Due</span>
+                        </div>
+                        <div class="date-item">
+                            <span class="event">Assignment 1</span>
+                            <span class="date">Week 3</span>
+                            <span style="margin: 0 0.5rem;">/</span>
+                            <span class="date">Week 5</span>
+                        </div>
+                        <div class="date-item">
+                            <span class="event">Assignment 2</span>
+                            <span class="date">Week 5</span>
+                            <span style="margin: 0 0.5rem;">/</span>
+                            <span class="date">Week 7</span>
+                        </div>
+                        <div class="date-item">
+                            <span class="event">Midterm</span>
+                            <span class="date">&nbsp;&nbsp;&nbsp;Week 6</span>
+                            <span style="margin: 0 0.5rem;"></span>
+                            <span class="date"></span>
+                        </div>
+                        <div class="date-item">
+                            <span class="event">Assignment 3</span>
+                            <span class="date">&nbsp;Week 9</span>
+                            <span style="margin: 0 0.5rem;">/</span>
+                            <span class="date">Week 11</span>
+                        </div>
+                        <div class="date-item">
+                            <span class="event">Final Project</span>
+                            <span class="date"></span>
+                            <span style="margin: 0 0.5rem;"></span>
+                            <span class="date">Week 13</span>
+                        </div>
+                        </div>
+                </div>
+
+                <!-- Resources Sidebar -->
+                <div class="sidebar-card" id="resources">
+                    <h3>📖 Resources</h3>
+                    <h4>Required Textbooks</h4>
+                    <ul style="margin-left: 1.2rem;">
+                        <li><strong>ESL:</strong> The Elements of Statistical Learning - Hastie et al.</li>
+                        <li><strong>DL:</strong> Deep Learning - Goodfellow et al.</li>
+                        <li><strong>RL:</strong> Reinforcement Learning: An Introduction - Sutton et al.</li>
+                        <li><strong>PML:</strong> Probabilistic Machine Learning - Murphy et al.</li>
+                    </ul>
+                </div>
+
+                <!-- Instructor -->
+                <div class="sidebar-card" id="team">
+                    <h3>👨‍🏫 Instructor</h3>
+                    <div class="instructor-mini">
+                        <div class="name">Dr. Spencer Luo</div>
+                        <a href="mailto:swl2145@columbia.edu" class="email">swl2145@columbia.edu</a>
+                    </div>
+
+                    <h3>🎓 Teaching Assistants</h3>
+                    <ul class="ta-list">
+                        <li>
+                            <div class="name">Case Schemmer</div>
+                            <a href="mailto:chs2164@columbia.edu" class="email">chs2164@columbia.edu</a>
+                        </li>
+                        <li>
+                            <div class="name">Mihika Riya Sanghvi</div>
+                            <a href="mailto:mrs2356@columbia.edu" class="email">mrs2356@columbia.edu</a>
+                        </li>
+                        <li>
+                            <div class="name">Hamsitha Challagundla</div>
+                            <a href="mailto:hc3540@columbia.edu" class="email">hc3540@columbia.edu</a>
+                        </li>
+                        <li>
+                            <div class="name">Shashwat Kumar</div>
+                            <a href="mailto:sk5520@columbia.edu" class="email">sk5520@columbia.edu</a>
+                        </li>
+                        <li>
+                            <div class="name">Jiayi Niu</div>
+                            <a href="mailto:jn2941@columbia.edu" class="email">jn2941@columbia.edu</a>
+                        </li>
+                        <li>
+                            <div class="name">Tony Tian</div>
+                            <a href="mailto:jt3640@columbia.edu" class="email">jt3640@columbia.edu</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="sidebar-card">
+                    <h3>🔗 Quick Links</h3>
+                    <div class="quick-links">
+                        <a href="https://edstem.org/us/courses/86194" target="_blank">💬 Ed Discussion</a>
+                        <a href="https://courseworks2.columbia.edu/courses/234147" target="_blank">📚 Courseworks</a>
+                        <a href="https://huggingface.co/" target="_blank">🤗 Hugging Face</a>
+                        <a href="#" target="_blank">📝 Syllabus PDF</a>
+                    </div>
+                </div>
+
+                <!-- Office Hours -->
+                <div class="sidebar-card">
+                    <h3>🕐 Office Hours</h3>
+                    <p style="font-size: 0.9rem; color: var(--columbia-gray);">
+                        <strong> OH and recitations TBD soon.</strong><br>
