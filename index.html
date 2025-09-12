@@ -133,7 +133,7 @@
 
         .content-grid {
             display: grid;
-            grid-template-columns: 3fr 380px;
+            grid-template-columns: 3fr 450px;
             gap: 2rem;
             max-width: 1600px;
             margin: 0 auto;
@@ -616,7 +616,13 @@
                             <tr>
                                 <td><span class="week-number">2</span></td>
                                 <td><strong>Data Preparation & Feature Engineering</strong></td>
-                                <td><a href="materials/[RELEASE] L2 - Data.pdf" target="_blank">📖 Slides </a></td>
+                                <td>
+                                    <a href="materials/[RELEASE] L2 - Data.pdf" target="_blank">📖 Slides</a>
+                                    <br>
+                                    <a href="https://colab.research.google.com/drive/1Dg0r5i_-ONC2hAf9MNMFox7_IB2UMCNH?usp=sharing" target="_blank">💻 Demo</a>
+                                    <br>
+                                    <a href="https://colab.research.google.com/drive/1jQKMWiLINB39y9iS7Yj1KO7fH3la5in8?usp=sharing" target="_blank">💻 Case Study</a>
+                                </td>
                             <tr>
                                 <td><span class="week-number">3</span></td>
                                 <td><strong>Generative vs. Discriminative Approaches: Naive Bayes & Linear Regression</strong></td>
@@ -763,17 +769,7 @@
                         </div>
                 </div>
 
-                <!-- Resources Sidebar -->
-                <div class="sidebar-card" id="resources">
-                    <h3>📖 Resources</h3>
-                    <h4>Required Textbooks</h4>
-                    <ul style="margin-left: 1.2rem;">
-                        <li><strong>The Elements of Statistical Learning</strong> - Hastie et al. <a href="https://hastie.su.domains/ElemStatLearn/download.html" target="_blank">[PDF]</a></li>
-                        <li><strong>Deep Learning</strong> - Goodfellow et al. <a href="https://github.com/janishar/mit-deep-learning-book-pdf" target="_blank">[PDF]</a></li>
-                        <li><strong>Reinforcement Learning: An Introduction</strong> - Sutton et al. <a href="https://www.incompleteideas.net/book/bookdraft2018jan1.pdf" target="_blank">[PDF]</a></li>
-                        <li><strong>Probabilistic Machine Learning</strong> - Murphy et al. <a href="https://probml.github.io/pml-book/book1.html" target="_blank">[PDF]</a></li>
-                    </ul>
-                </div>
+             
 
                 <!-- Instructor -->
                 <div class="sidebar-card" id="team">
@@ -814,9 +810,35 @@
                 <!-- Office Hours -->
                 <div class="sidebar-card">
                     <h3>🕐 Office Hours</h3>
-                    <p style="font-size: 0.9rem; color: var(--columbia-gray);">
-                        <strong> OH and recitations TBD soon.</strong><br>
-                        </p>
+                    <table style="width:100%;margin-top:0.5rem;font-size:0.95rem;border-collapse:collapse;">
+                        <thead>
+                            <tr style="background:#f5f7fa;color:#1e3a5f;">
+                                <th style="padding:4px 8px;border-bottom:1px solid #e0e0e0;text-align:left;">Weekday</th>
+                                <th style="padding:4px 8px;border-bottom:1px solid #e0e0e0;text-align:left;">Time</th>
+                                <th style="padding:4px 8px;border-bottom:1px solid #e0e0e0;text-align:left;">TA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="text-align:left;">Mon</td><td style="text-align:left;">3:00 - 4:00 pm</td><td style="text-align:left;">Jiayi</td></tr>
+                            <tr style="height:12px;"></tr>
+                            <tr><td style="text-align:left;">Tue</td><td style="text-align:left;">1:30 - 2:30 pm</td><td style="text-align:left;">Mihika</td></tr>
+                            <tr><td style="text-align:left;"></td><td style="text-align:left;">2:30 - 3:30 pm</td><td style="text-align:left;">Shashwat</td></tr>
+                            <tr><td style="text-align:left;"></td><td style="text-align:left;">5:00 - 6:00 pm</td><td style="text-align:left;">Jiayi</td></tr>
+                            <tr><td style="text-align:left;"></td><td style="text-align:left;">5:30 - 7:30 pm</td><td style="text-align:left;">Case</td></tr>
+                            <tr style="height:12px;"></tr>
+                            <tr><td style="text-align:left;">Wed</td><td style="text-align:left;">11:00 am - 12:00 pm</td><td style="text-align:left;">Mihika</td></tr>
+                            <tr><td style="text-align:left;"></td><td style="text-align:left;">2:00 - 4:00 pm</td><td style="text-align:left;">Tony</td></tr>
+                            <tr style="height:12px;"></tr>
+                            <tr><td style="text-align:left;">Thu</td><td style="text-align:left;">12:00 - 1:00 pm</td><td style="text-align:left;">Shashwat</td></tr>
+                            <tr style="height:12px;"></tr>
+                            <tr><td style="text-align:left;">Fri</td><td style="text-align:left;">10:00 am - 12:00 pm</td><td style="text-align:left;">Hamsitha</td></tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <div style="font-size:0.95rem;color:var(--columbia-gray);margin-bottom:0.5rem;">
+                    <strong>Location:</strong> DSI conference room <br>
+                    <span style="font-size:0.92rem;">(Please reach out to TAs for more information.)</span>
+                    </div>
                 </div>
 
                 <!-- Quick Links -->
@@ -828,4 +850,16 @@
                         <a href="https://huggingface.co/" target="_blank">🤗 Hugging Face</a>
                         <a href="materials/[COMS4995W032 AML Fall25] Syllabus.pdf" target="_blank">📝 Syllabus</a>
                     </div>
+                </div>   
+
+                <!-- Resources Sidebar -->
+                <div class="sidebar-card" id="resources">
+                    <h3>📖 Resources</h3>
+                    <h4>Required Textbooks</h4>
+                    <ul style="margin-left: 1.2rem;">
+                        <li><strong>The Elements of Statistical Learning</strong> - Hastie et al. <a href="https://hastie.su.domains/ElemStatLearn/download.html" target="_blank">[PDF]</a></li>
+                        <li><strong>Deep Learning</strong> - Goodfellow et al. <a href="https://github.com/janishar/mit-deep-learning-book-pdf" target="_blank">[PDF]</a></li>
+                        <li><strong>Reinforcement Learning: An Introduction</strong> - Sutton et al. <a href="https://www.incompleteideas.net/book/bookdraft2018jan1.pdf" target="_blank">[PDF]</a></li>
+                        <li><strong>Probabilistic Machine Learning</strong> - Murphy et al. <a href="https://probml.github.io/pml-book/book1.html" target="_blank">[PDF]</a></li>
+                    </ul>
                 </div>
