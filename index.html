@@ -89,26 +89,13 @@
         }
 
         /* Navigation with smooth hover effects */
-        nav {
-            background: linear-gradient(to bottom, var(--columbia-navy), rgba(30, 58, 95, 0.98));
-            padding: 1rem 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
         .nav-menu {
             display: flex;
             justify-content: center;
             gap: 2rem;
             list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
         .nav-menu li a {
@@ -725,10 +712,26 @@
                     </div>
 
                     <h3 style="margin-top: 2rem;">Assignment Details</h3>
-                    <ul style="margin-left: 1.5rem; line-height: 2;">
-                        <li><strong>3 Homework Assignments:</strong> End-to-end ML solution with codes + a N-page report</li>
+                    <ul style="margin-left: 2.2rem; line-height: 2;">
+                        <li style="margin:0;padding:0;">
+                            <strong>3 Homework Assignments:</strong> End-to-end ML solution with codes + a N-page report
+                            <ul style="list-style:none;margin:0;padding:0;margin-left:1.8rem;">
+                                <li style="display:flex;align-items:center;gap:8px;margin:4px 0;">
+                                    <span>🧾</span>
+                                    <a href="materials/%5BA1%5D%20From%20Dirty%20Data%20to%20Predictive%20Models.pdf" target="_blank">Assignment 1 — From Dirty Data to Predictive Models</a>
+                                </li>
+                                <li style="display:flex;align-items:center;gap:8px;margin:4px 0;">
+                                    <span>⚙️</span>
+                                    <a href="materials/%5BA2%5D%20From%20Single%20Models%20to%20Ensemble%20Power.pdf" target="_blank">Assignment 2 — From Single Models to Ensemble Power</a>
+                                </li>
+                                <li style="display:flex;align-items:center;gap:8px;margin:4px 0;">
+                                    <span>👀</span>
+                                    <a href="materials/%5BA3%5D%20Transformer%20is%20All%20You%20Need.pdf" target="_blank">Assignment 3 — Transformer is All You Need</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li><strong>1 Midterm Exam:</strong> Closed-book, focus on concepts (single cheat sheet allowed)</li>
-                        <li><strong>1 Final Project:</strong> <a href="materials/[Final] Build, Train, and Imagine with LLMs.pdf" target="_blank"> Build, Train, and Imagine with LLMs 🤖 </a></li>
+                        <li><strong>1 Final Project:</strong> <a href="materials/%5BFinal%5D%20Build%2C%20Train%2C%20and%20Imagine%20with%20LLMs.pdf" target="_blank"> Build, Train, and Imagine with LLMs 🤖 </a></li>
                     </ul>
                 </section>
                 
