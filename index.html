@@ -73,6 +73,7 @@
             margin-bottom: 0.5rem;
             text-shadow: 0 2px 8px rgba(0,0,0,0.2);
             letter-spacing: 1px;
+            color: white;
         }
 
         .course-subtitle {
@@ -80,6 +81,7 @@
             font-weight: 300;
             opacity: 0.95;
             margin-bottom: 1rem;
+            color: white;
         }
 
         .university-name {
@@ -99,7 +101,7 @@
         }
 
         .nav-menu li a {
-            color: white;
+            color: var(--columbia-navy);
             text-decoration: none;
             font-weight: 500;
             padding: 0.5rem 1rem;
@@ -109,8 +111,20 @@
         }
 
         .nav-menu li a:hover {
-            background: rgba(185, 217, 235, 0.2);
+            background: rgba(30,58,95,0.06);
             transform: translateY(-1px);
+        }
+
+        /* make nav container match header width and sit below header */
+        nav {
+            background: linear-gradient(to right, var(--columbia-blue), var(--columbia-light-blue));
+            border-bottom: 1px solid rgba(30,58,95,0.06);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
         /* Main Content */
@@ -790,15 +804,15 @@
                         </div>
                         <div class="date-item">
                             <span class="event">Assignment 3</span>
-                            <span class="date">&nbsp;Week 9</span>
+                            <span class="date">&nbsp;Week 10</span>
                             <span style="margin: 0 0.5rem;">/</span>
-                            <span class="date">Week 11</span>
+                            <span class="date">Week 12</span>
                         </div>
                         <div class="date-item">
                             <span class="event">Final Project</span>
                             <span class="date"></span>
                             <span style="margin: 0 0.5rem;"></span>
-                            <span class="date">Week 13</span>
+                            <span class="date">Week 16</span>
                         </div>
                         </div>
                 </div>
